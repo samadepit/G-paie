@@ -5,5 +5,5 @@ from Prediction import views
 
 urlpatterns = [
     path("goapp/", views.object_detection_view),
-    path('task-list/', views.taskList, name="task-list"),
+    path('task-list/<str:pk>', views.taskList),
 ]

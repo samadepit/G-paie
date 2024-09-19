@@ -15,11 +15,12 @@ from rest_framework.decorators import api_view, parser_classes
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from .serializers import TaskSerializer
+from .models import Task
 
 @api_view(['POST'])
 @parser_classes([MultiPartParser, FormParser])
 def object_detection_view(request):
-    model_path = '/home/wecode/Rendu/MachineLearning/django-rest-allauth/core/authentication/last.pt'
+    model_path = '/home/wecode/Rendu/G-paie/Prozect/MachineLearning/Project/APIProjectFolder/Prediction/last.pt'
     model = YOLO(model_path)
 
     image_file = request.FILES.get('image')
@@ -36,18 +37,18 @@ def object_detection_view(request):
 
     for result in results.boxes.data.tolist():
         x1, y1, x2, y2, score, class_id = result
-        detected_objects.append({
-            'class_id': int(class_id),
-            'score': score,
-            'bbox': [int(x1), int(y1), int(x2), int(y2)]
-        })
+        if score>=0.8:
+            detected_objects.append({
+                'class_id': int(class_id),
+                'score': score,
+                'bbox': [int(x1), int(y1), int(x2), int(y2)]
+            })
         # detected_objects.append(result)
-
     return Response(detected_objects)
 # Create your views here.
-
+@api_view(['GET'])
 def taskList(request,pk):
     tasks = Task.objects.get(id=pk)
-    serializer = TaskSerializer(tasks, many=True)
+    print(tasks)
+    serializer = TaskSerializer(tasks, many=False)
     return Response(serializer.data)
-    
