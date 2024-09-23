@@ -20,7 +20,7 @@ from .models import Task
 @api_view(['POST'])
 @parser_classes([MultiPartParser, FormParser])
 def object_detection_view(request):
-    model_path = '/home/wecode/Rendu/G-paie/Prozect/MachineLearning/Project/APIProjectFolder/Prediction/last.pt'
+    model_path = '/home/wecode/Rendu/G-paie/Prediction/last.pt'
     model = YOLO(model_path)
 
     image_file = request.FILES.get('image')
