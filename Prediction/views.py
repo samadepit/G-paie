@@ -25,7 +25,7 @@ from django.shortcuts import get_object_or_404
 @api_view(['POST'])
 @parser_classes([MultiPartParser, FormParser])
 def object_detection_view(request):
-    model_path = 'Prediction/last.pt'
+    model_path = './Prediction/last.pt'
     model = YOLO(model_path)
 
     image_file = request.FILES.get('image')
