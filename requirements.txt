@@ -192,7 +192,7 @@ matplotlib==3.9.2
 # mdurl @ file:///work/perseverance-python-buildout/croot/mdurl_1698845653285/work
 # menuinst @ file:///croot/menuinst_1723567589013/work
 # mistune @ file:///work/perseverance-python-buildout/croot/mistune_1698895588147/work
-mkl-service==2.4.0
+mkl-service==2.4.1
 # mkl_fft @ file:///croot/mkl_fft_1725370245198/work
 # mkl_random @ file:///croot/mkl_random_1725370241878/work
 # more-itertools @ file:///work/perseverance-python-buildout/croot/more-itertools_1701747136585/work
