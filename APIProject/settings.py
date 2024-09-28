@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
-
+import MySQLdb as Database
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -78,17 +78,15 @@ WSGI_APPLICATION = "APIProject.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE':'django.db.backends.postgresql',
+        'ENGINE':'django.db.backends.mysql',
         'NAME': 'defaultdb',
         'USER': 'avnadmin',
-        'PASSWORD': 'AVNS_hHxeDAgmGTTfcpXSUo6',
-        'HOST': 'pg-10adacbe-epitech-1b8f.l.aivencloud.com',
+        'PASSWORD': 'AVNS_zSdRw9UHQbTeQjQALP8',
+        'HOST': 'mysql-371b4f39-epitech-1b8f.d.aivencloud.com',
         'PORT': '10697',
         'ssl_require': True,
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -100,7 +98,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

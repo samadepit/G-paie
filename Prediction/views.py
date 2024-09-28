@@ -16,6 +16,11 @@ from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from .serializers import TaskSerializer
 from .models import Task
+from .serializers import PaiementSerializer
+from .models import Paiement
+from rest_framework import serializers
+from rest_framework import status
+from django.shortcuts import get_object_or_404
 
 @api_view(['POST'])
 @parser_classes([MultiPartParser, FormParser])
@@ -52,3 +57,71 @@ def taskList(request,pk):
     print(tasks)
     serializer = TaskSerializer(tasks, many=False)
     return Response(serializer.data)
+
+# @api_view(['POST'])
+# def add_items(request):
+#     item = TaskSerializer(data=request.data)
+ 
+#     # validating for already existing data
+#     if Task.objects.filter(**request.data).exists():
+#         raise serializers.ValidationError('This data already exists')
+ 
+#     if item.is_valid():
+#         item.save()
+#         return Response(item.data)
+#     else:
+#         return Response(status=status.HTTP_404_NOT_FOUND)
+# @api_view(['GET'])
+# def taskList(request,pk):
+#     tasks = Paiement.objects.get()
+#     print(tasks)
+#     serializer = PaiementSerializer(tasks, many=False)
+#     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def view_items(request):
+    # checking for the parameters from the URL
+    if request.query_params:
+        items = Paiement.objects.filter(**request.query_params.dict())
+    else:
+        items = Paiement.objects.all()
+ 
+    # if there is something in items else raise error
+    if items:
+        serializer = PaiementSerializer(items, many=True)
+        return Response(serializer.data)
+    else:
+        return Response(status="status.HTTP_404_NOT_FOUND")
+    
+@api_view(['POST'])
+def add_items(request):
+    item = PaiementSerializer(data=request.data)
+ 
+    # validating for already existing data
+    if Paiement.objects.filter(**request.data).exists():
+        raise serializers.ValidationError('This data already exists')
+ 
+    if item.is_valid():
+        item.save()
+        return Response(item.data)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['POST'])
+def update_items(request, pk):
+    item = Paiement.objects.get(pk=pk)
+    data = PaiementSerializer(instance=item, data=request.data)
+ 
+    if data.is_valid():
+        data.save()
+        return Response(data.data)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['DELETE'])
+def delete_items(request, pk):
+    item = get_object_or_404(Paiement, pk=pk)
+    item.delete()
+    return Response(status=status.HTTP_202_ACCEPTED)
+
