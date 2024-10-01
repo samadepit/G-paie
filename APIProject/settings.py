@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "Prediction",
     "rest_framework",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -53,7 +54,16 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    "https://detctobject-django.onrender.com",
+    "http://localhost:3000",
+    "http://127.0.0.1:8000",
+]
+
 
 ROOT_URLCONF = "APIProject.urls"
 
